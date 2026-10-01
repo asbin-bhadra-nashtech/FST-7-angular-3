@@ -1,0 +1,67 @@
+<div class="form-container">
+
+  <h1>{{ isEditMode ? 'Edit Employee' : 'Add Employee' }}</h1>
+
+  @if (errorMessage) {
+  <div class="error">
+    {{ errorMessage }}
+  </div>
+  }
+
+  <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+
+    <label>Name</label>
+    <input type="text" formControlName="name">
+
+    @if (employeeForm.controls.name.touched &&
+    employeeForm.controls.name.invalid) {
+    <small>Name is required and must be at least 3 characters.</small>
+    }
+
+    <label>Email</label>
+    <input type="email" formControlName="email">
+
+    @if (employeeForm.controls.email.touched &&
+    employeeForm.controls.email.invalid) {
+    <small>Please enter a valid email.</small>
+    }
+
+    <label>Department</label>
+    <input type="text" formControlName="department">
+
+    @if (employeeForm.controls.department.touched &&
+    employeeForm.controls.department.invalid) {
+    <small>Department is required.</small>
+    }
+
+    <label>Role</label>
+    <input type="text" formControlName="role">
+
+    @if (employeeForm.controls.role.touched &&
+    employeeForm.controls.role.invalid) {
+    <small>Role is required.</small>
+    }
+
+    <label>Salary</label>
+    <input type="number" formControlName="salary">
+
+    @if (employeeForm.controls.salary.touched &&
+    employeeForm.controls.salary.invalid) {
+    <small>Salary must be greater than 0.</small>
+    }
+
+    <div class="buttons">
+
+      <button type="submit">
+        {{ isEditMode ? 'Update Employee' : 'Add Employee' }}
+      </button>
+
+      <button type="button" (click)="clearForm()">
+        Clear
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

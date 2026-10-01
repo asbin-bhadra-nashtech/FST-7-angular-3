@@ -1,0 +1,36 @@
+.details-container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.details-container h1 {
+  margin-bottom: 20px;
+}
+
+.details-container p {
+  margin: 10px 0;
+}
+
+.actions {
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.actions a {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #222;
+  background: #eee;
+}
+
+.actions a:hover {
+  background: #ddd;
+}
+
+.error {
+  color: red;
+}

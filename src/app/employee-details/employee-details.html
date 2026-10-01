@@ -1,0 +1,51 @@
+<div class="details-container">
+
+  @if (loading) {
+  <p>Loading employee...</p>
+  }
+
+  @if (!loading && employee) {
+
+  <h1>{{ employee.name }}</h1>
+
+  <p>
+    <strong>Email:</strong>
+    {{ employee.email }}
+  </p>
+
+  <p>
+    <strong>Department:</strong>
+    {{ employee.department }}
+  </p>
+
+  <p>
+    <strong>Role:</strong>
+    {{ employee.role }}
+  </p>
+
+  <p>
+    <strong>Salary:</strong>
+    ₹{{ employee.salary }}
+  </p>
+
+
+  <div class="actions">
+
+    <a [routerLink]="['/employees', employee.id, 'edit']">
+      Edit
+    </a>
+
+    <a routerLink="/employees">
+      Back to Employees
+    </a>
+
+  </div>
+  }
+
+  @if (!loading && errorMessage) {
+  <p class="error">
+    {{ errorMessage }}
+  </p>
+  }
+
+</div>

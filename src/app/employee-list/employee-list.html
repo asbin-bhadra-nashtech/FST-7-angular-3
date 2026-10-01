@@ -1,0 +1,146 @@
+<div class="employee-page">
+
+  <div class="page-header">
+    <div>
+      <h1>Employee Management</h1>
+      <p>Manage employees and their information.</p>
+    </div>
+
+    <a routerLink="/employees/new" class="add-button">
+      + Add Employee
+    </a>
+  </div>
+
+  @if (loading) {
+  <div class="state-message">
+    <p>Loading employees...</p>
+  </div>
+  }
+
+  @if (errorMessage) {
+  <div class="error-message">
+    <p>{{ errorMessage }}</p>
+
+    <button type="button" (click)="loadEmployees()">
+      Retry
+    </button>
+  </div>
+  }
+
+  @if (!loading && !errorMessage) {
+
+  <!-- Search and Filter -->
+  <div class="filters">
+
+    <input
+      type="text"
+      placeholder="Search by name or email..."
+      [(ngModel)]="searchText"
+      (input)="applyFilters()"
+    />
+
+    <select
+      [(ngModel)]="selectedDepartment"
+      (change)="applyFilters()"
+    >
+      <option value="All">All Departments</option>
+      <option value="Engineering">Engineering</option>
+      <option value="HR">HR</option>
+      <option value="Finance">Finance</option>
+      <option value="Sales">Sales</option>
+    </select>
+
+    <select
+      [(ngModel)]="sortBy"
+      (change)="applyFilters()"
+    >
+      <option value="name">Sort by Name</option>
+      <option value="salary">Sort by Salary</option>
+    </select>
+
+  </div>
+
+  @if (filteredEmployees.length === 0) {
+
+  <div class="state-message">
+    <h2>No employees found</h2>
+    <p>No employees match your search or filter.</p>
+  </div>
+
+  } @else {
+
+  <div class="employee-count">
+    {{ filteredEmployees.length }} employees
+  </div>
+
+  <div class="employee-grid">
+
+    @for (employee of filteredEmployees; track employee.id) {
+
+    <div class="employee-card">
+
+      <div class="employee-card-header">
+
+        <div class="avatar">
+          {{ employee.name.charAt(0) }}
+        </div>
+
+        <div>
+          <h2>{{ employee.name }}</h2>
+          <p>{{ employee.role }}</p>
+        </div>
+
+      </div>
+
+      <div class="employee-details">
+
+        <div class="detail">
+          <span class="label">Email</span>
+          <span>{{ employee.email }}</span>
+        </div>
+
+        <div class="detail">
+          <span class="label">Department</span>
+          <span>{{ employee.department }}</span>
+        </div>
+
+        <div class="detail">
+          <span class="label">Salary</span>
+          <span>₹{{ employee.salary }}</span>
+        </div>
+
+      </div>
+
+      <div class="card-actions">
+
+        <a
+          [routerLink]="['/employees', employee.id]"
+          class="view-button">
+          View
+        </a>
+
+        <a
+          [routerLink]="['/employees', employee.id, 'edit']"
+          class="edit-button">
+          Edit
+        </a>
+
+        <button
+          type="button"
+          class="delete-button"
+          (click)="deleteEmployee(employee.id)">
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+    }
+
+  </div>
+  }
+
+  }
+
+</div>
